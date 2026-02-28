@@ -1,4 +1,77 @@
+<!-- # Apuntes
 
+Dieferencias entre NAT y adaptador puente
+
+En las maquinas virtuales
+
+El NAT nos da una IP, por ejemplo tenemos una ip 192.168.0.10, el NAT crea como una red privada el cual ahi empiezan las IPs (10.0.0.1, 10.0.0.10, 10.0.0.20, etc.)
+Si le ponemos adaptador puente va a agarrar un punto
+
+Las desventaja de NAT es que las computadoras no se pueden comunicar con adaptador puente y viceversa, adaptador puente no se puede comunicar con NAT
+
+## Que es una IP
+
+Una ip es un identificador unico, un numero que tiene 32 bits, es identificador unico a nivel red, las computadoras tienen 2 identificadores, y a nivel fisico se identifica con las direcciones MAC. los numeros de las IPs se les conocen como octetos o bloques, dentro de las IPs tenemos IP Publica e IP privada
+
+- Publica: Son enrutables en internet, son las que podemos acceder a Internet
+- Privada: No podemos acceder a internet.
+
+Todas las direcciones IP tienen dos partes, la parte de red y la parte de host, la parte de red RED(calle)+HOST(Numero de casas)
+
+Como podemos saber la direccion de IP? Con la mascara
+
+Las clases de IP: A,B,C,D y E.
+
+Cada clase se hacia de acuerdo al uso que se le hacia a la red, estamos hablando de las ips v4, un ip para cada persona, y esto provoco que se agoten, que se hizo para subsanar? El mapeo, pero no fue una solucion muy grande, y ahi se creo las ips v6, las clases se usaban en grandes empresas, con mascaras, la clase A usaba con mascara /8, la B /16 la C /24, cada mascara nos dice cuantos bits estan encendidos y cual es la porcion de red y la porcion de host
+
+si ponemos 192.168.0.10/8 esto nos dira que los primeros 8 bits estan encendidos,
+
+192.168.0.10 => 11000000.10101000.00000000.00001010
+/8           => 11111111.00000000.00000000.00000000
+Esto significa que estan encendidos los primeros bits que serian 192
+
+Nota: el 192.168.0.10/8 esta mal, investigar por que
+
+Cada bit tiene su posicion 0,1,2,3,4...
+
+Cuando los bits estan encendido se suma todos los que estan prendidos
+
+## La parte de subneting
+
+- Cuantas subredes? => 2^n (Donde n = numero de bits prestados de la parte de host)
+- Cuantos hosts? => 2^m-2 (Donde m = bits restantes de host (menos red y broadcast))
+- Donde empieza? => 256-mascaraa (El resultado es el "Salto" o incremento entre cada ID de red)
+
+Todas las subredes van a tener la misma mascara
+
+Si yo hago 192.168.1.0/24 => n=2 bits
+
+Subnetear es sacar los bits de la parte apagada de la mascara
+
+Subreder 2^2 = 4
+hosts: 2^6 - 2 = 62
+
+Ejemplo base 192.168.1.0/24 => 4 subredes
+Calcular nueva mascara => /24 + 2 = /26 => mascara: 255.255.255.192
+Encontrar el Salto => resta el valor del octeto
+
+Lo que no debes hacer
+
+Asignar IP de red a un host, no se debe asignar una ip que podemos asignar
+Asignar IP de Broadcast
+Mezclar mascara incompatibles
+Ovlidar la puerta de Enlace
+
+## Parte practica, cambiar las redes dinamicas y estaticas
+
+Comandos:
+ip a
+ifconfig
+ambos hacen lo mismo
+
+Nota: En maquina siempre debemos hacer **su contraseña: 123456**
+
+Recomendacion de activar la interfaz parcial, nos vamos a asignar 192.168.0.100/24 -->
 # Apuntes Completos de Redes - Guía de Estudio
 
 ## Tema 1: Virtualización de Redes - NAT vs. Adaptador Puente
